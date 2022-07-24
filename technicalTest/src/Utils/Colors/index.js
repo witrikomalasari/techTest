@@ -11,14 +11,19 @@ const mainColors = {
 };
 
 export const colors = {
-  primary: mainColors.blue1, // primer, tutup, tombol
-  secondary: mainColors.blue2, // harga terbaru, tombol kotak size, txt daftar penyakit
-  third: mainColors.blue3, // tanggal + txt SIZE
+  //background
+  primary: mainColors.blue1,
+  secondary: mainColors.blue2,
+  third: mainColors.blue3,
   white: mainColors.white,
 
   text: {
-    primary: mainColors.grey1,
+    title: mainColors.blue2, // harga terbaru, tombol kotak size, txt daftar penyakit
+    subTitle: mainColors.blue1, // primer, tutup, tombol
+    blue: mainColors.blue3, // tanggal + txt SIZE
+    primary: mainColors.grey3,
     secondary: mainColors.dark1, // tulisan modal size + harga size
+    third: mainColors.grey1,
     white: mainColors.white,
   },
 
