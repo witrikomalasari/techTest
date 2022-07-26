@@ -1,6 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {BuatTambak, HargaUdang, JalaMedia, TambahPencatatan} from '../../Pages';
+import KabarUdang from '../../Pages/KabarUdang';
+import InfoPenyakit from '../../Pages/Penyakit';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +14,31 @@ const Router = () => {
         component={JalaMedia}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="HargaUdang" component={HargaUdang} />
-      <Stack.Screen name="BuatTambak" component={BuatTambak} />
-      <Stack.Screen name="TambahPencatatan" component={TambahPencatatan} />
+      <Stack.Screen
+        name="HargaUdang"
+        component={HargaUdang}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="BuatTambak"
+        component={BuatTambak}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TambahPencatatan"
+        component={TambahPencatatan}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="KabarUdang"
+        component={KabarUdang}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="InfoPenyakit"
+        component={InfoPenyakit}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 import ModalCity from './ModalCity';
 import ModalFilter from './ModalFilter';
-import SizeModal from './SizeModal';
+import ModalSizeComponent from './ModalSizeComponent';
 
-export {ModalCity, ModalFilter, SizeModal};
+export {ModalCity, ModalFilter, ModalSizeComponent};

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 18,
-    fontFamily: fonts.primary['700'],
+    fontFamily: fonts.primary[700],
     marginLeft: 16,
   },
 });

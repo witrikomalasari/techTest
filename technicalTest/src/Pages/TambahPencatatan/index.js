@@ -4,13 +4,12 @@ import {
   Dimensions,
   Modal,
   ScrollView,
+  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {Headers} from '../../Components';
+import {Button, CardSizeAndKota, Headers} from '../../Components';
 
-// const {width, height} = Dimensions.get('window');
 const {width: ScreenWidth, height: ScreenHeight} = Dimensions.get('window');
 
 const TambahPencatatan = props => {
@@ -20,16 +19,27 @@ const TambahPencatatan = props => {
     20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
     190, 200,
   ]);
-  const [bar, setBar] = useState([]);
 
   useEffect(() => {
     setIsShow(!isShow);
+    // sizeUdang(200);
   }, []);
+
+  // const sizeUdang = nums => {
+  //   let temp = [];
+  //   for (let i = 10; i < nums; i + 10) {
+  //     temp.push(nums[i]);
+  //   }
+  //   // console.log('temp', temp);
+  //   setLooping([...temp]);
+  // };
 
   let hitung = looping.length;
 
+  // console.log('looping', looping);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.containerModal}>
       <Headers
         title="Tambah Pencarian"
         type="icon-only"
@@ -37,68 +47,35 @@ const TambahPencatatan = props => {
         onPress={() => navigation.goBack()}
       />
       <Modal animationType="slide" transparent={true} visible={isShow}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0, 68, 146, 0.8)',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              width: ScreenWidth,
-              height: ScreenHeight * 0.9,
-              position: 'absolute',
-              bottom: 0,
-              backgroundColor: 'white',
-              borderTopLeftRadius: 16,
-              borderTopRightRadius: 16,
-              // padding: 15,
-              // margin: 20,
-              // marginTop: 15,
-              // shadowColor: '#000',
-              // shadowOffset: {
-              //   width: 0,
-              //   height: 2,
-              // },
-              // shadowOpacity: 0.25,
-              // shadowRadius: 4,
-              // elevation: 5,
-            }}>
-            <View
-              style={{
-                margin: 16,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{color: 'black'}}>Size</Text>
-              <TouchableOpacity
+        <View style={styles.containerContent}>
+          <View style={styles.titleContent}>
+            <View style={styles.wrapTitle}>
+              <Text style={styles.txt}>Size</Text>
+              <Button
+                titleButtonText="Tutup"
+                type="text-button"
                 onPress={() => {
                   setIsShow(!isShow);
                   navigation.navigate('JalaMedia');
-                }}>
-                <Text style={{color: 'blue'}}>Tutup</Text>
-              </TouchableOpacity>
+                }}
+              />
             </View>
-            <View style={{borderColor: 'lightgrey', borderWidth: 1}}></View>
-            <ScrollView style={{flex: 1}}>
+            <View style={styles.border}></View>
+            <ScrollView style={styles.wrapSize}>
               {looping.map((e, id) => {
                 // console.log('isi e', id);
                 return (
-                  <TouchableOpacity
+                  <CardSizeAndKota
                     key={id}
-                    activeOpacity={0.7}
-                    style={{
-                      paddingHorizontal: 16,
-                      justifyContent: 'center',
-                      height: ScreenHeight / hitung,
-                    }}
+                    type="size"
+                    height={hitung - 4}
+                    title={e}
                     onPress={() => {
                       props.navigation.navigate('JalaMedia', {
                         data: e,
                       });
-                    }}>
-                    <Text style={{color: 'black', fontSize: 14}}>{e}</Text>
-                  </TouchableOpacity>
+                    }}
+                  />
                 );
               })}
             </ScrollView>
@@ -108,5 +85,28 @@ const TambahPencatatan = props => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  containerModal: {flex: 1},
+  containerContent: {flex: 1, backgroundColor: 'rgba(0, 68, 146, 0.8)'},
+  titleContent: {
+    flex: 1,
+    width: ScreenWidth,
+    height: ScreenHeight * 0.9,
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  wrapTitle: {
+    margin: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  txt: {color: 'black'},
+  border: {borderColor: 'lightgrey', borderWidth: 1},
+  wrapSize: {flex: 1},
+});
 
 export default TambahPencatatan;

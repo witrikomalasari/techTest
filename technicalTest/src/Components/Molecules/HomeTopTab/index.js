@@ -1,14 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {
-  ProfileDummy,
+  ImageNews,
+  linkIcon,
   ProfileDummy1,
   ProfileDummy2,
   ProfileDummy3,
+  SizeIcon,
+  Udang,
 } from '../../../Assets';
 import {colors, fonts} from '../../../Utils';
+import {Button, Gap} from '../../Atoms';
 import CardNewsAndPenyakit from '../CardNewsAndPenyakit';
 import CardSupplier from '../CardSupplier';
 // import {useDispatch, useSelector} from 'react-redux';
@@ -31,22 +35,17 @@ const HargaUdang = () => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView>
-      <View
-        style={[
-          styles.containerHargaUdang,
-          {paddingTop: 14, paddingBottom: 8},
-        ]}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={[styles.containerHargaUdang, {paddingTop: 14}]}>
         <Text
           style={{
             color: colors.secondary,
-            fontFamily: fonts.primary['700'],
+            fontFamily: fonts.primary[700],
             fontSize: 18,
             textAlign: 'center',
           }}>
           Harga Terbaru
         </Text>
-
         <CardSupplier
           // key={item.id}
           type="HargaUdang"
@@ -60,12 +59,12 @@ const HargaUdang = () => {
           price="IDR 160.000"
           onPress={() => navigation.navigate('HargaUdang')}
           typeButton="primary"
-          titleButton="Lihat Detail"
+          titleButton="LIHAT DETAIL"
         />
         <CardSupplier
           // key={item.id}
           type="HargaUdang"
-          image={ProfileDummy}
+          image={ProfileDummy1}
           nameSupplier="Mina Udang Barokah"
           typeButtonVerification="ButtonVerification"
           date="16 january 2020"
@@ -75,7 +74,7 @@ const HargaUdang = () => {
           price="IDR 160.000"
           onPress={() => navigation.navigate('HargaUdang')}
           typeButton="primary"
-          titleButton="Lihat Detail"
+          titleButton="LIHAT DETAIL"
           disable
         />
         <CardSupplier
@@ -91,7 +90,45 @@ const HargaUdang = () => {
           price="IDR 160.000"
           onPress={() => navigation.navigate('HargaUdang')}
           typeButton="primary"
-          titleButton="Lihat Detail"
+          titleButton="LIHAT DETAIL"
+          disable
+        />
+        <CardSupplier
+          // key={item.id}
+          type="HargaUdang"
+          image={ProfileDummy3}
+          nameSupplier="Mina Udang Barokah"
+          typeButtonVerification="ButtonVerification"
+          date="16 january 2020"
+          provinsi="Nusa Tenggara Barat"
+          kota="Sumba"
+          size="Size 200"
+          price="IDR 160.000"
+          onPress={() => navigation.navigate('HargaUdang')}
+          typeButton="primary"
+          titleButton="LIHAT DETAIL"
+        />
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 8,
+          marginHorizontal: 12,
+          flexDirection: 'row',
+        }}>
+        <Button
+          image={SizeIcon}
+          title="Size"
+          subTitle="100"
+          type="FloatingButton"
+          typeStyle="size"
+          onPress={() => navigation.navigate('TambahPencatatan')}
+        />
+        <Button
+          image={SizeIcon}
+          title="Indonesia"
+          type="FloatingButton"
+          onPress={() => navigation.navigate('BuatTambak')}
         />
       </View>
     </ScrollView>
@@ -99,34 +136,86 @@ const HargaUdang = () => {
 };
 
 const KabarUdang = () => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.containerPopular}>
-      <CardNewsAndPenyakit
-      // key={item.id}
-      // type="product"
-      // name={item.name}
-      // price={item.price}
-      // rating={item.rate}
-      // image={{uri: item.picturePath}}
-      // onPress={() => navigation.navigate('FoodDetail', item)}
-      />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.containerKabarUdang}>
+        <Text
+          style={{
+            color: colors.secondary,
+            fontFamily: fonts.primary[700],
+            fontSize: 18,
+            paddingVertical: 15,
+          }}>
+          Kabar Terbaru
+        </Text>
+        <CardNewsAndPenyakit
+          image={ImageNews}
+          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
+          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
+          date="30 April 2020"
+          symbol={linkIcon}
+          onPress={() => navigation.navigate('KabarUdang')}
+        />
+        <CardNewsAndPenyakit
+          image={ImageNews}
+          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
+          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
+          date="30 April 2020"
+          symbol={linkIcon}
+        />
+        <CardNewsAndPenyakit
+          image={ImageNews}
+          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
+          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
+          date="30 April 2020"
+          symbol={linkIcon}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 const InfoPenyakit = () => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.containerRecommended}>
-      <CardNewsAndPenyakit
-      // key={item.id}
-      // type="product"
-      // name={item.name}
-      // price={item.price}
-      // rating={item.rate}
-      // image={{uri: item.picturePath}}
-      // onPress={() => navigation.navigate('FoodDetail', item)}
-      />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.containerInfoPenyakit}>
+        <Text
+          style={{
+            color: colors.secondary,
+            fontFamily: fonts.primary[700],
+            fontSize: 18,
+            paddingVertical: 15,
+          }}>
+          Daftar Penyakit
+        </Text>
+        <CardNewsAndPenyakit
+          image={Udang}
+          title="Black Spot Disease (Bintik Hitam)"
+          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
+          date="30 April 2020"
+          symbol={linkIcon}
+          onPress={() => navigation.navigate('InfoPenyakit')}
+        />
+        <CardNewsAndPenyakit
+          image={Udang}
+          title="Black Spot Disease (Bintik Hitam)"
+          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
+          date="30 April 2020"
+          symbol={linkIcon}
+        />
+        <CardNewsAndPenyakit
+          image={Udang}
+          title="Black Spot Disease (Bintik Hitam)"
+          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
+          date="30 April 2020"
+          symbol={linkIcon}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -182,6 +271,10 @@ const styles = StyleSheet.create({
   containerHargaUdang: {
     marginHorizontal: 20,
   },
-  // containerPopular: {paddingTop: 8, paddingHorizontal: 24},
-  // containerRecommended: {paddingTop: 8, paddingHorizontal: 24},
+  containerKabarUdang: {
+    marginHorizontal: 16,
+  },
+  containerInfoPenyakit: {
+    marginHorizontal: 16,
+  },
 });

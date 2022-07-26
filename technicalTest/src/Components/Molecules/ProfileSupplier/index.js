@@ -11,7 +11,7 @@ const ProfileSupplier = ({image, nameSupplier, title, type, disable}) => {
         <Text
           style={{
             fontSize: 12,
-            fontFamily: fonts.primary['400'],
+            fontFamily: fonts.primary[400],
             color: colors.text.blue,
             paddingBottom: 3,
           }}>
@@ -20,7 +20,7 @@ const ProfileSupplier = ({image, nameSupplier, title, type, disable}) => {
         <Text
           style={{
             fontSize: 14,
-            fontFamily: fonts.primary['400'],
+            fontFamily: fonts.primary[400],
             color: colors.text.third,
           }}>
           {nameSupplier}

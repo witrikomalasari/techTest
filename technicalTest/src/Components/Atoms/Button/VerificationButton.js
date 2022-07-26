@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     width: disable ? 110 : 90,
     alignItems: 'center',
     paddingTop: 1,
+    marginRight: 16,
     backgroundColor: disable
       ? colors.button.disable.background
       : colors.button.third.background,
@@ -46,9 +47,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12,
     paddingTop: 2,
-    paddingRight: 3,
-    paddingLeft: 3,
-    fontFamily: fonts.primary['400'],
+    paddingRight: 5,
+    paddingLeft: 5,
+    fontFamily: fonts.primary[400],
     color: colors.button.disable.text,
   }),
 });

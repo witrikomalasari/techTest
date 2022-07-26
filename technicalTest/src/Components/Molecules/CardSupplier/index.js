@@ -1,15 +1,8 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
 import React from 'react';
-import ProfileSupplier from '../ProfileSupplier';
-import {Button} from '../../Atoms';
+import {StyleSheet, Text, View} from 'react-native';
 import {colors, fonts} from '../../../Utils';
+import CardPriceAndPhone from '../CardPriceAndPhone';
+import ProfileSupplier from '../ProfileSupplier';
 
 const CardSupplier = ({
   image,
@@ -61,19 +54,19 @@ const CardSupplier = ({
                   {
                     color: colors.text.third,
                     fontSize: 18,
-                    fontFamily: fonts.primary['700'],
+                    fontFamily: fonts.primary[700],
                     paddingBottom: 4,
                   },
                 ]}>
                 {kota}
               </Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1, backgroundColor: 'blue'}}>
-                <Text>{size}</Text>
-                <Text>{price}</Text>
-              </View>
-              <Button type={typeButton} title={titleButton} onPress={onPress} />
+              <CardPriceAndPhone
+                typeButton={typeButton}
+                titleButton={titleButton}
+                price={price}
+                size={size}
+                onPress={onPress}
+              />
             </View>
           </>
         );
@@ -88,7 +81,8 @@ export default CardSupplier;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    paddingVertical: 20,
+    paddingTop: 14,
+    paddingBottom: 11,
     marginVertical: 8,
     borderColor: colors.border.primary,
     borderRadius: 4,
@@ -101,10 +95,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderWidth: 1,
     paddingLeft: 12,
-    paddingRight: 16,
+    paddingRight: 10,
   },
   txt: {
     fontSize: 12,
-    fontFamily: fonts.primary['400'],
+    fontFamily: fonts.primary[400],
   },
 });

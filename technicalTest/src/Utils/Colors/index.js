@@ -7,6 +7,7 @@ const mainColors = {
   grey2: '#E5E5E5',
   grey3: '#737373', // tulisan topTAB
   cream1: '#FFF8E7', // kotak enable
+  black: '#000000',
   white: '#ffffff',
 };
 
@@ -16,6 +17,7 @@ export const colors = {
   secondary: mainColors.blue2,
   third: mainColors.blue3,
   white: mainColors.white,
+  grey: mainColors.grey2,
 
   text: {
     title: mainColors.blue2, // harga terbaru, tombol kotak size, txt daftar penyakit
@@ -25,6 +27,7 @@ export const colors = {
     secondary: mainColors.dark1, // tulisan modal size + harga size
     third: mainColors.grey1,
     white: mainColors.white,
+    black: mainColors.black,
   },
 
   button: {
