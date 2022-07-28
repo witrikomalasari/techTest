@@ -3,7 +3,13 @@ import React from 'react';
 import {Delete, SearchIcon} from '../../../Assets';
 import {TextInput} from '../../Atoms';
 
-const Search = ({placeholder, placeholderTextColor, onDelete}) => {
+const Search = ({
+  placeholder,
+  placeholderTextColor,
+  onDelete,
+  value,
+  onChangeText,
+}) => {
   return (
     <View
       style={{
@@ -14,6 +20,8 @@ const Search = ({placeholder, placeholderTextColor, onDelete}) => {
       <TextInput
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
+        value={value}
+        onChangeText={onChangeText}
       />
       <SearchIcon position="absolute" top={32} left={11} />
       <TouchableOpacity activeOpacity={0.7} onPress={onDelete}>

@@ -15,8 +15,6 @@ const Button = ({
   image,
   subTitle,
   typeStyle,
-  sizeBorderRadiusLeft,
-  sizeBorderRadiusRight,
 }) => {
   if (type === 'ButtonVerification') {
     // verifikasi

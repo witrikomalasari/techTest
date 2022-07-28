@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../Utils';
 
 const FloatingButton = ({onPress, typeStyle, image, title, subTitle}) => {
   return (
-    <TouchableOpacity activeOpacity={(0, 7)} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <Image source={image} />
       <View style={styles.subContainer(typeStyle)}>
         <Text>{title}</Text>

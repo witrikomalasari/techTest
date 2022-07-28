@@ -32,7 +32,6 @@ const CardSupplier = ({
               title={title}
               type={typeButtonVerification}
             />
-
             <View style={{paddingBottom: 4}}>
               <Text
                 style={[

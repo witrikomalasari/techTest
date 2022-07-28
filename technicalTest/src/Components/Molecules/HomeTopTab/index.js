@@ -1,23 +1,41 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
+import moment from 'moment';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   ImageNews,
   linkIcon,
-  ProfileDummy1,
-  ProfileDummy2,
-  ProfileDummy3,
+  ProfileDummy,
   SizeIcon,
   Udang,
 } from '../../../Assets';
+import {
+  getDetailHargaUdang,
+  getSupplierData,
+} from '../../../Redux/Actions/HomeAction';
+import {
+  getKabarUdang,
+  getWebViewKabarUdang,
+} from '../../../Redux/Actions/KabarUdangAction';
+import {
+  getListPenyakit,
+  getWebViewListPenyakit,
+} from '../../../Redux/Actions/ListPenyakitAction';
 import {colors, fonts} from '../../../Utils';
-import {Button, Gap} from '../../Atoms';
+import {Button} from '../../Atoms';
 import CardNewsAndPenyakit from '../CardNewsAndPenyakit';
 import CardSupplier from '../CardSupplier';
-// import {useDispatch, useSelector} from 'react-redux';
-// import {getFoodDataByTypes} from '../../../redux/action';
-// import ItemListFood from '../ItemListFood';
 
 const renderTabBar = props => (
   <TabBar
@@ -33,86 +51,82 @@ const renderTabBar = props => (
 
 const HargaUdang = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {dataSupplier} = useSelector(state => state.homeReducer);
 
+  // console.log('dataSupplier', JSON.stringify(dataSupplier, null, 2));
+
+  const [page, setPage] = useState(1);
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    dispatch(getSupplierData(page));
+    // coba(dataSupplier);
+  }, [page]);
+
+  const renderReview = ({item}) => {
+    // console.log('itemSUPLIER', item);
+
+    console.log('ITEMSUPPLIER', JSON.stringify(item, null, 2));
+
+    return (
+      <CardSupplier
+        key={item.id}
+        type="HargaUdang"
+        image={ProfileDummy}
+        nameSupplier={item.creator.name}
+        typeButtonVerification="ButtonVerification"
+        date={moment(item.updated_at).format('DD MMMM YYYY')}
+        provinsi={item.region.province_name}
+        kota={
+          item.region.regency_name
+            ? item.region.regency_name
+            : item.region.province_name
+        }
+        // size={'Size ' + item.date_region_full_name.slice(0, 1)} // ROUTE PARAMS
+        price={'IDR ' + item.id} //
+        onPress={async () => {
+          await dispatch(getDetailHargaUdang(item.id, item.creator.region_id));
+          navigation.navigate('HargaUdang', {
+            data: item,
+          });
+        }}
+        typeButton="primary"
+        titleButton="LIHAT DETAIL"
+        disable={item.creator.buyer}
+      />
+    );
+  };
+
+  const handleOnEnd = () => {
+    setPage(page + 1);
+    setDatas([...dataSupplier, ...datas]);
+  };
+
+  // console.log('data ajah', datas);
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <>
       <View style={[styles.containerHargaUdang, {paddingTop: 14}]}>
-        <Text
-          style={{
-            color: colors.secondary,
-            fontFamily: fonts.primary[700],
-            fontSize: 18,
-            textAlign: 'center',
-          }}>
-          Harga Terbaru
-        </Text>
-        <CardSupplier
-          // key={item.id}
-          type="HargaUdang"
-          image={ProfileDummy3}
-          nameSupplier="Mina Udang Barokah"
-          typeButtonVerification="ButtonVerification"
-          date="16 january 2020"
-          provinsi="Nusa Tenggara Barat"
-          kota="Sumba"
-          size="Size 200"
-          price="IDR 160.000"
-          onPress={() => navigation.navigate('HargaUdang')}
-          typeButton="primary"
-          titleButton="LIHAT DETAIL"
-        />
-        <CardSupplier
-          // key={item.id}
-          type="HargaUdang"
-          image={ProfileDummy1}
-          nameSupplier="Mina Udang Barokah"
-          typeButtonVerification="ButtonVerification"
-          date="16 january 2020"
-          provinsi="Nusa Tenggara Barat"
-          kota="Sumba"
-          size="Size 200"
-          price="IDR 160.000"
-          onPress={() => navigation.navigate('HargaUdang')}
-          typeButton="primary"
-          titleButton="LIHAT DETAIL"
-          disable
-        />
-        <CardSupplier
-          // key={item.id}
-          type="HargaUdang"
-          image={ProfileDummy2}
-          nameSupplier="Mina Udang Barokah"
-          typeButtonVerification="ButtonVerification"
-          date="16 january 2020"
-          provinsi="Nusa Tenggara Barat"
-          kota="Sumba"
-          size="Size 200"
-          price="IDR 160.000"
-          onPress={() => navigation.navigate('HargaUdang')}
-          typeButton="primary"
-          titleButton="LIHAT DETAIL"
-          disable
-        />
-        <CardSupplier
-          // key={item.id}
-          type="HargaUdang"
-          image={ProfileDummy3}
-          nameSupplier="Mina Udang Barokah"
-          typeButtonVerification="ButtonVerification"
-          date="16 january 2020"
-          provinsi="Nusa Tenggara Barat"
-          kota="Sumba"
-          size="Size 200"
-          price="IDR 160.000"
-          onPress={() => navigation.navigate('HargaUdang')}
-          typeButton="primary"
-          titleButton="LIHAT DETAIL"
-        />
+        <Text style={styles.wrapData}>Harga Terbaru</Text>
+
+        {dataSupplier.length > 0 && (
+          <FlatList
+            keyExtractor={(item, index) => index}
+            data={[...dataSupplier, ...datas]}
+            renderItem={renderReview}
+            showsVerticalScrollIndicator={false}
+            pagingEnabled={true}
+            onEndReached={handleOnEnd}
+            onEndReachedThreshold={0.1}
+          />
+        )}
       </View>
+
       <View
         style={{
           position: 'absolute',
-          bottom: 8,
+          top: initialLayout.height * 0.76,
+          // bottom: 8,
           marginHorizontal: 12,
           flexDirection: 'row',
         }}>
@@ -131,12 +145,22 @@ const HargaUdang = () => {
           onPress={() => navigation.navigate('BuatTambak')}
         />
       </View>
-    </ScrollView>
+    </>
   );
 };
 
 const KabarUdang = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {kabarUdang} = useSelector(state => state.kabarUdangReducer);
+
+  // console.log('listPenyakitBARU', JSON.stringify(kabarUdang, null, 2));
+
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    dispatch(getKabarUdang(page));
+  }, []);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -150,28 +174,37 @@ const KabarUdang = () => {
           }}>
           Kabar Terbaru
         </Text>
-        <CardNewsAndPenyakit
-          image={ImageNews}
-          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
-          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
-          date="30 April 2020"
-          symbol={linkIcon}
-          onPress={() => navigation.navigate('KabarUdang')}
-        />
-        <CardNewsAndPenyakit
-          image={ImageNews}
-          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
-          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
-          date="30 April 2020"
-          symbol={linkIcon}
-        />
-        <CardNewsAndPenyakit
-          image={ImageNews}
-          title="Baruno: Alat Kualitas Air Pintar Handal dan Praktis"
-          subTitle="Tahun 2019 telah berlalu, kini tahun 2020 telah memasuki minggu ketiga, memasuki tahun..."
-          date="30 April 2020"
-          symbol={linkIcon}
-        />
+        {kabarUdang.length > 0 && (
+          <FlatList
+            keyExtractor={(item, index) => index}
+            data={kabarUdang}
+            renderItem={item => {
+              // console.log(
+              //   'KABARUDANGDONGK',
+              //   JSON.stringify(item.item, null, 2),
+              // );
+              return (
+                <CardNewsAndPenyakit
+                  image={ImageNews}
+                  title={item.item.full_name}
+                  subTitle={item.item.meta_description}
+                  date={moment(item.item.updated_at).format('DD MMMM YYYY')}
+                  symbol={linkIcon}
+                  onPress={() => {
+                    navigation.navigate('KabarUdang', {
+                      KabarUdang: item.item.id,
+                    });
+                    dispatch(getWebViewKabarUdang(item.item.id));
+                  }}
+                />
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+            pagingEnabled={true}
+            // onEndReached={handleOnEnd}
+            // onEndReachedThreshold={0.1}
+          />
+        )}
       </View>
     </ScrollView>
   );
@@ -179,6 +212,16 @@ const KabarUdang = () => {
 
 const InfoPenyakit = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {listPenyakit} = useSelector(state => state.ListPenyakitReducer);
+
+  // console.log('listPenyakitBARU', JSON.stringify(listPenyakit, null, 2));
+
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    dispatch(getListPenyakit(page));
+  }, []);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -192,34 +235,46 @@ const InfoPenyakit = () => {
           }}>
           Daftar Penyakit
         </Text>
-        <CardNewsAndPenyakit
-          image={Udang}
-          title="Black Spot Disease (Bintik Hitam)"
-          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
-          date="30 April 2020"
-          symbol={linkIcon}
-          onPress={() => navigation.navigate('InfoPenyakit')}
-        />
-        <CardNewsAndPenyakit
-          image={Udang}
-          title="Black Spot Disease (Bintik Hitam)"
-          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
-          date="30 April 2020"
-          symbol={linkIcon}
-        />
-        <CardNewsAndPenyakit
-          image={Udang}
-          title="Black Spot Disease (Bintik Hitam)"
-          subTitle="Tampak fisik pada udang ialah karapas berwarna kecoklatan dan adanya bercak hitam pada karapa..."
-          date="30 April 2020"
-          symbol={linkIcon}
-        />
+        {listPenyakit.length > 0 && (
+          <FlatList
+            keyExtractor={(item, index) => index}
+            data={listPenyakit}
+            renderItem={item => {
+              // console.log(
+              //   'listPenyakitBARUAKA',
+              //   JSON.stringify(item.item.id, null, 2),
+              // );
+              return (
+                <CardNewsAndPenyakit
+                  image={Udang}
+                  title={item.item.full_name}
+                  subTitle={item.item.meta_description}
+                  date={moment(item.item.updated_at).format('DD MMMM YYYY')}
+                  symbol={linkIcon}
+                  onPress={async () => {
+                    await dispatch(getWebViewListPenyakit(item.item.id));
+                    navigation.navigate('InfoPenyakit', {
+                      listInfoPenyakit: item.item.id,
+                    });
+                  }}
+                />
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+            pagingEnabled={true}
+            // onEndReached={handleOnEnd}
+            // onEndReachedThreshold={0.1}
+          />
+        )}
       </View>
     </ScrollView>
   );
 };
 
-const initialLayout = {width: Dimensions.get('window').width};
+const initialLayout = {
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height,
+};
 
 const HomeTopTab = () => {
   const [index, setIndex] = React.useState(0);
@@ -263,13 +318,38 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   tabText: focused => ({
-    fontFamily: fonts.primary['700'],
+    fontFamily: fonts.primary[700],
     fontSize: 14,
     color: focused ? colors.text.subTitle : colors.text.primary,
   }),
 
   containerHargaUdang: {
     marginHorizontal: 20,
+  },
+  wrapData: {
+    color: colors.secondary,
+    fontFamily: fonts.primary[700],
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  footer: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  loadMoreBtn: {
+    padding: 10,
+    backgroundColor: '#800000',
+    borderRadius: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 15,
+    textAlign: 'center',
   },
   containerKabarUdang: {
     marginHorizontal: 16,

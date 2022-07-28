@@ -26,7 +26,7 @@ const ProfileSupplier = ({image, nameSupplier, title, type, disable}) => {
           {nameSupplier}
         </Text>
       </View>
-      <Button type={type} title={title} disable={disable} />
+      {!disable ? <Button type={type} title={title} disable={disable} /> : null}
     </View>
   );
 };

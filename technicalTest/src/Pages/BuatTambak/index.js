@@ -2,29 +2,26 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
-  KeyboardAvoidingView,
   Modal,
-  Platform,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {
-  Button,
-  CardSizeAndKota,
-  Gap,
-  Headers,
-  Search,
-  TextInput,
-} from '../../Components';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button, CardSizeAndKota, Gap, Headers, Search} from '../../Components';
+import {searchFilterAction} from '../../Redux/Actions/SearchAction';
 
-const {width: ScreenWidth, height: ScreenHeight} = Dimensions.get('window');
+const {width: ScreenWidth} = Dimensions.get('window');
 
 const BuatTambak = props => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+  const searchRegion = useSelector(state => state.searchReducer);
+  const [searchTextInput, setSearchTextInput] = useState([]);
   const [isShow, setIsShow] = useState(false);
-  const [region, setRegion] = useState([
+  const [regions, setRegions] = useState([
     {id: 1, region: 'Aceh Simeulue'},
     {id: 2, region: 'Aceh, Simeulue, Tupah Selatan'},
     {id: 3, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
@@ -77,9 +74,62 @@ const BuatTambak = props => {
 
   useEffect(() => {
     setIsShow(!isShow);
+    dispatch(searchFilterAction());
   }, []);
 
-  let hitung = region.length;
+  let hitung = regions.length;
+
+  console.log('searchRegionfrom Reducer', searchRegion);
+
+  const searchByTextInput = region => {
+    // console.log('searchByTextInput', region);
+    let filteredRegions = region.filter(regi =>
+      regi.region
+        .toLowerCase()
+        .includes(searchTextInput.toLowerCase('Aceh Simeulue')),
+    );
+    return filteredRegions;
+  };
+
+  const handleFilterRegion = region => {
+    // console.log('handleFilterRegion', region);
+
+    let filteredRegions;
+    if (searchTextInput) {
+      filteredRegions = searchByTextInput(region);
+    }
+    if (!searchTextInput) {
+      filteredRegions = searchByTextInput(region);
+    }
+    return filteredRegions;
+  };
+
+  // console.log('region', filteredRegions);
+
+  const renderMapPerSection = regions.map((region, id) => {
+    // console.log('regionTERBARU', regions);
+    //  let coa;
+    //  regions.map(e => {
+    //    coa = e;
+    //  });
+    //  console.log('coa', coa.region);
+    // let regionName;
+    // regions.map(e => {
+    //   regionName = e;
+    // });
+    //   // console.log('regionName', regionName);
+    return (
+      <CardSizeAndKota
+        key={region.id}
+        type="region"
+        title={region.region}
+        data={searchTextInput > 0 ? handleFilterRegion(regions) : regions}
+        height={hitung - 24}
+        navigation={props.navigation}
+        nestedScrollEnabled
+      />
+    );
+  });
 
   return (
     <View style={styles.containerModal}>
@@ -103,28 +153,24 @@ const BuatTambak = props => {
                 }}
               />
             </View>
-            <Search placeholder="Cari" placeholderTextColor="black" onDelete />
+            <Search
+              placeholder="Cari"
+              placeholderTextColor="black"
+              value={searchTextInput}
+              onChangeText={text => {
+                console.log('search', text);
+                setSearchTextInput(text);
+              }}
+              onDelete
+            />
             <Gap height={8} />
             <View style={styles.border}></View>
-            <ScrollView>
-              <View style={styles.wrapRegion}>
-                {region.map(e => {
-                  // console.log('isi e', id);
-                  return (
-                    <CardSizeAndKota
-                      key={e.id}
-                      type="region"
-                      title={e.region}
-                      height={hitung - 24}
-                      onPress={() => {
-                        props.navigation.navigate('JalaMedia', {
-                          region: e,
-                        });
-                      }}
-                    />
-                  );
-                })}
-              </View>
+            <ScrollView
+              // nestedScrollEnabled={true}
+              showsVerticalScrollIndicator={false}
+              // contentContainerStyle={{width: '100%'}}
+            >
+              <View style={styles.wrapRegion}>{/*{renderMapPerSection}*/}</View>
             </ScrollView>
           </View>
         </View>

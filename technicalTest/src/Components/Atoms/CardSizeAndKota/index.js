@@ -1,38 +1,74 @@
 import React from 'react';
 import {
   Dimensions,
+  FlatList,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {colors} from '../../../Utils';
 import Gap from '../Gap';
 
 const {height: ScreenHeight} = Dimensions.get('window');
 
-const CardSizeAndKota = ({onPress, type, title, height, price}) => {
-  const List = () => {
+const CardSizeAndKota = ({
+  onPress,
+  type,
+  title,
+  height,
+  price,
+  nestedScrollEnabled,
+  ...props
+}) => {
+  // const handleToAttachHome = region => {
+  //   props.navigation.navigate('JalaMedia', {
+  //     region: region,
+  //   });
+  // };
+
+  const renderText = ({item}) => {
     if (type === 'size' || type === 'region') {
-      return <Text style={styles.txt}>{title}</Text>;
+      return (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.container(height)}
+          // onPress={() => handleToAttachHome(item.id)}
+        >
+          <Text style={styles.txt}>{title}</Text>
+        </TouchableOpacity>
+      );
     }
     if (type === 'listHarga') {
       return (
-        <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity style={{flexDirection: 'row'}}>
           <Text style={styles.txt}>{title}</Text>
           <Gap width={15} />
           <Text style={styles.txt}>{price}</Text>
-        </View>
+        </TouchableOpacity>
       );
     }
   };
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={styles.container(height)}
-      onPress={onPress}>
-      <List />
-    </TouchableOpacity>
+    <View style={{flex: 1}}>
+      {props.data.length > 0 ? (
+        <FlatList
+          {...props}
+          data={props.data}
+          renderItem={renderText}
+          keyExtractor={(item, index) => index}
+          nestedScrollEnabled={nestedScrollEnabled}
+        />
+      ) : (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{color: colors.white, fontSize: 16}}>
+            Opps...Movie not found!
+          </Text>
+        </View>
+      )}
+    </View>
   );
 };
 

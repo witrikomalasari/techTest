@@ -19,7 +19,6 @@ const TambahPencatatan = props => {
     20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
     190, 200,
   ]);
-
   useEffect(() => {
     setIsShow(!isShow);
     // sizeUdang(200);
@@ -33,11 +32,8 @@ const TambahPencatatan = props => {
   //   // console.log('temp', temp);
   //   setLooping([...temp]);
   // };
-
   let hitung = looping.length;
-
   // console.log('looping', looping);
-
   return (
     <View style={styles.containerModal}>
       <Headers

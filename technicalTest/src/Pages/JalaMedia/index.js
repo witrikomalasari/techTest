@@ -8,8 +8,8 @@ import {Button, Headers, HomeTopTab} from '../../Components';
 const JalaMedia = props => {
   const navigation = useNavigation();
 
-  const coba = props.route.params;
-  console.log('coba', coba);
+  // const coba = props.route.params;
+  // console.log('coba', coba);
 
   return (
     <View style={styles.page}>
