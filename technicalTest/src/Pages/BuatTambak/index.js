@@ -18,7 +18,7 @@ const {width: ScreenWidth} = Dimensions.get('window');
 const BuatTambak = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const searchRegion = useSelector(state => state.searchReducer);
+  const region = useSelector(state => state.searchReducer);
   const [searchTextInput, setSearchTextInput] = useState([]);
   const [isShow, setIsShow] = useState(false);
   const [regions, setRegions] = useState([
@@ -74,12 +74,12 @@ const BuatTambak = props => {
 
   useEffect(() => {
     setIsShow(!isShow);
-    dispatch(searchFilterAction());
+    dispatch(regionAction());
   }, []);
 
   let hitung = regions.length;
 
-  console.log('searchRegionfrom Reducer', searchRegion);
+  console.log('searchRegionfrom Reducer', region);
 
   const searchByTextInput = region => {
     // console.log('searchByTextInput', region);
@@ -91,18 +91,18 @@ const BuatTambak = props => {
     return filteredRegions;
   };
 
-  const handleFilterRegion = region => {
-    // console.log('handleFilterRegion', region);
+  // const handleFilterRegion = region => {
+  //   // console.log('handleFilterRegion', region);
 
-    let filteredRegions;
-    if (searchTextInput) {
-      filteredRegions = searchByTextInput(region);
-    }
-    if (!searchTextInput) {
-      filteredRegions = searchByTextInput(region);
-    }
-    return filteredRegions;
-  };
+  //   let filteredRegions;
+  //   if (searchTextInput) {
+  //     filteredRegions = searchByTextInput(region);
+  //   }
+  //   if (!searchTextInput) {
+  //     filteredRegions = searchByTextInput(region);
+  //   }
+  //   return filteredRegions;
+  // };
 
   // console.log('region', filteredRegions);
 

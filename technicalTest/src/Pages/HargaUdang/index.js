@@ -43,6 +43,7 @@ const HargaUdang = props => {
     updated_at,
   } = props.route.params.data;
 
+  // PERCOBAAN CARI LIST HARGA, DATA FROM API
   // const [listHarga, setListHarga] = useState([]);
   // const price = () => {
   //   let harga = [];
@@ -64,6 +65,7 @@ const HargaUdang = props => {
 
   // console.log('ini list harga', listHarga);
 
+  // USESTATE HARDCODE KRN BELUM BERHASIL
   const [listHarga, setListHarga] = useState([
     {id: 1, size: 'Size 20', price: 'Rp. 97.000'},
     {id: 2, size: 'Size 21', price: 'Rp. 97.000'},

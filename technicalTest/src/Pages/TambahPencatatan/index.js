@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {Button, CardSizeAndKota, Headers} from '../../Components';
@@ -61,17 +62,17 @@ const TambahPencatatan = props => {
               {looping.map((e, id) => {
                 // console.log('isi e', id);
                 return (
-                  <CardSizeAndKota
-                    key={id}
-                    type="size"
-                    height={hitung - 4}
-                    title={e}
-                    onPress={() => {
-                      props.navigation.navigate('JalaMedia', {
-                        data: e,
-                      });
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    style={{
+                      paddingHorizontal: 16,
+                      justifyContent: 'center',
+                      height: ScreenHeight / hitung,
                     }}
-                  />
+                    // onPress={() => handleToAttachHome(item.id)}
+                  >
+                    <Text style={styles.txt}>{e}</Text>
+                  </TouchableOpacity>
                 );
               })}
             </ScrollView>
