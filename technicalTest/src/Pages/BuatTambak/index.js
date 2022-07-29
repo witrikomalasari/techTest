@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Modal,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,7 +10,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, CardSizeAndKota, Gap, Headers, Search} from '../../Components';
-import {searchFilterAction} from '../../Redux/Actions/SearchAction';
+import {regionAction} from '../../Redux/Actions/SearchAction';
 
 const {width: ScreenWidth} = Dimensions.get('window');
 
@@ -21,6 +20,8 @@ const BuatTambak = props => {
   const region = useSelector(state => state.searchReducer);
   const [searchTextInput, setSearchTextInput] = useState([]);
   const [isShow, setIsShow] = useState(false);
+
+  //HARD code
   const [regions, setRegions] = useState([
     {id: 1, region: 'Aceh Simeulue'},
     {id: 2, region: 'Aceh, Simeulue, Tupah Selatan'},
@@ -74,40 +75,39 @@ const BuatTambak = props => {
 
   useEffect(() => {
     setIsShow(!isShow);
-    dispatch(regionAction());
+    // dispatch(regionAction());
   }, []);
 
   let hitung = regions.length;
 
-  console.log('searchRegionfrom Reducer', region);
+  // console.log('resultREGION', JSON.stringify(region[0], null, 2));
 
   const searchByTextInput = region => {
     // console.log('searchByTextInput', region);
     let filteredRegions = region.filter(regi =>
-      regi.region
-        .toLowerCase()
-        .includes(searchTextInput.toLowerCase('Aceh Simeulue')),
+      regi.region.toLowerCase().includes(searchTextInput.toLowerCase('')),
     );
     return filteredRegions;
   };
 
-  // const handleFilterRegion = region => {
-  //   // console.log('handleFilterRegion', region);
+  const handleFilterRegion = region => {
+    console.log('handleFilterRegion', JSON.stringify(regions, null, 2));
 
-  //   let filteredRegions;
-  //   if (searchTextInput) {
-  //     filteredRegions = searchByTextInput(region);
-  //   }
-  //   if (!searchTextInput) {
-  //     filteredRegions = searchByTextInput(region);
-  //   }
-  //   return filteredRegions;
-  // };
+    let filteredRegions;
+    if (searchTextInput) {
+      filteredRegions = searchByTextInput(region);
+    }
+    if (!searchTextInput) {
+      filteredRegions = searchByTextInput(region);
+    }
+    return filteredRegions;
+  };
 
   // console.log('region', filteredRegions);
 
   const renderMapPerSection = regions.map((region, id) => {
-    // console.log('regionTERBARU', regions);
+    // console.log('resultREGION', JSON.stringify(regions, null, 2));
+
     //  let coa;
     //  regions.map(e => {
     //    coa = e;
@@ -123,7 +123,7 @@ const BuatTambak = props => {
         key={region.id}
         type="region"
         title={region.region}
-        data={searchTextInput > 0 ? handleFilterRegion(regions) : regions}
+        data={searchTextInput > 0 ? handleFilterRegion(regions) : region.region}
         height={hitung - 24}
         navigation={props.navigation}
         nestedScrollEnabled
@@ -170,7 +170,7 @@ const BuatTambak = props => {
               showsVerticalScrollIndicator={false}
               // contentContainerStyle={{width: '100%'}}
             >
-              <View style={styles.wrapRegion}>{/*{renderMapPerSection}*/}</View>
+              <View style={styles.wrapRegion}>{renderMapPerSection}</View>
             </ScrollView>
           </View>
         </View>

@@ -67,7 +67,7 @@ const HargaUdang = () => {
   const renderReview = ({item}) => {
     // console.log('itemSUPLIER', item);
 
-    console.log('ITEMSUPPLIER', JSON.stringify(item, null, 2));
+    // console.log('ITEMSUPPLIER', JSON.stringify(item, null, 2));
 
     return (
       <CardSupplier

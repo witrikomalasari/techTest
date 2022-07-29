@@ -6,7 +6,7 @@ export const regionAction = () => async dispatch => {
 
   try {
     const res = await Axios.get(urlApi);
-    console.log('SET_REGION', JSON.stringify(res, null, 2));
+    console.log('SET_REGION', JSON.stringify(res.data, null, 2));
 
     return dispatch({
       type: 'SET_REGION',

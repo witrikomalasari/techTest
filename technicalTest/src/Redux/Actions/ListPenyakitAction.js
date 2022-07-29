@@ -45,7 +45,7 @@ export const getWebViewListPenyakit = id => async dispatch => {
 
   try {
     const res = await Axios.get(urlApi);
-    console.log('resultWEBVIEW', JSON.stringify(res, null, 2));
+    // console.log('resultWEBVIEW', JSON.stringify(res, null, 2));
 
     return dispatch({
       type: 'SET_WEBVIEWLISTPENYAKIT',

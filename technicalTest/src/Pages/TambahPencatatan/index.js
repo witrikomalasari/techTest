@@ -33,6 +33,7 @@ const TambahPencatatan = props => {
   //   // console.log('temp', temp);
   //   setLooping([...temp]);
   // };
+
   let hitung = looping.length;
   // console.log('looping', looping);
   return (
@@ -63,14 +64,13 @@ const TambahPencatatan = props => {
                 // console.log('isi e', id);
                 return (
                   <TouchableOpacity
+                    // onPress={() => handleToFilterBySize(item.id)}
                     activeOpacity={0.7}
                     style={{
                       paddingHorizontal: 16,
                       justifyContent: 'center',
                       height: ScreenHeight / hitung,
-                    }}
-                    // onPress={() => handleToAttachHome(item.id)}
-                  >
+                    }}>
                     <Text style={styles.txt}>{e}</Text>
                   </TouchableOpacity>
                 );
