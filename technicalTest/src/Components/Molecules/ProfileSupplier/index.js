@@ -3,7 +3,14 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {colors, fonts} from '../../../Utils';
 import {Button} from '../../Atoms';
 
-const ProfileSupplier = ({image, nameSupplier, title, type, disable}) => {
+const ProfileSupplier = ({
+  image,
+  nameSupplier,
+  title,
+  type,
+  disable,
+  isShow,
+}) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.photoContainer} />
@@ -26,7 +33,7 @@ const ProfileSupplier = ({image, nameSupplier, title, type, disable}) => {
           {nameSupplier}
         </Text>
       </View>
-      {!disable ? <Button type={type} title={title} disable={disable} /> : null}
+      {isShow && <Button type={type} title={title} disable={disable} />}
     </View>
   );
 };

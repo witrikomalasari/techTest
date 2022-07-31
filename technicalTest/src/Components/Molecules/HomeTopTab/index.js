@@ -84,7 +84,7 @@ const HargaUdang = () => {
             : item.region.province_name
         }
         // size={'Size ' + item.date_region_full_name.slice(0, 1)} // ROUTE PARAMS
-        price={'IDR ' + item.id} //
+        // price={'IDR ' + item.price} //
         onPress={async () => {
           await dispatch(getDetailHargaUdang(item.id, item.creator.region_id));
           navigation.navigate('HargaUdang', {
@@ -94,6 +94,7 @@ const HargaUdang = () => {
         typeButton="primary"
         titleButton="LIHAT DETAIL"
         disable={item.creator.buyer}
+        isShow={true}
       />
     );
   };
@@ -186,8 +187,8 @@ const KabarUdang = () => {
               return (
                 <CardNewsAndPenyakit
                   image={ImageNews}
-                  title={item.item.full_name}
-                  subTitle={item.item.meta_description}
+                  title={item.item.title}
+                  subTitle={item.item.excerpt}
                   date={moment(item.item.updated_at).format('DD MMMM YYYY')}
                   symbol={linkIcon}
                   onPress={() => {

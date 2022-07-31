@@ -9,7 +9,7 @@ export const getKabarUdang = page => async dispatch => {
 
   try {
     const res = await Axios.get(urlApi, {headers});
-    // console.log('resultKABARUDANG', JSON.stringify(res, null, 2));
+    // console.log('resultKABARUDANG', JSON.stringify(res.data.data, null, 2));
 
     return dispatch({
       type: 'SET_KABARUDANG',

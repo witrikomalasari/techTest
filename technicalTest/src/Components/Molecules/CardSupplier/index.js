@@ -19,6 +19,7 @@ const CardSupplier = ({
   disable,
   title,
   onPress,
+  isShow,
 }) => {
   const renderContent = () => {
     switch (type) {
@@ -31,6 +32,7 @@ const CardSupplier = ({
               disable={disable}
               title={title}
               type={typeButtonVerification}
+              isShow={isShow}
             />
             <View style={{paddingBottom: 4}}>
               <Text

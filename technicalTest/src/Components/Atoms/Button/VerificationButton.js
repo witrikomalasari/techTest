@@ -8,7 +8,7 @@ export default function ButtonVerification({disable}) {
     if (disable) {
       return (
         <View>
-          <Text style={styles.title(disable)}>Belum terverifikasi</Text>
+          <Text style={styles.title}>Belum terverifikasi</Text>
         </View>
       );
     }
@@ -17,7 +17,7 @@ export default function ButtonVerification({disable}) {
       return (
         <View style={{flexDirection: 'row'}}>
           <VerificationIcon />
-          <Text style={styles.title(disable)}>Terverifikasi</Text>
+          <Text style={styles.title}>Terverifikasi</Text>
         </View>
       );
     }
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       : colors.button.third.background,
     borderRadius: 27,
   }),
-  title: disable => ({
+  title: {
     textAlign: 'center',
     fontSize: 12,
     paddingTop: 2,
@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontFamily: fonts.primary[400],
     color: colors.button.disable.text,
-  }),
+  },
 });

@@ -91,7 +91,7 @@ const BuatTambak = props => {
   };
 
   const handleFilterRegion = region => {
-    console.log('handleFilterRegion', JSON.stringify(regions, null, 2));
+    // console.log('handleFilterRegion', JSON.stringify(regions, null, 2));
 
     let filteredRegions;
     if (searchTextInput) {
@@ -158,7 +158,7 @@ const BuatTambak = props => {
               placeholderTextColor="black"
               value={searchTextInput}
               onChangeText={text => {
-                console.log('search', text);
+                // console.log('search', text);
                 setSearchTextInput(text);
               }}
               onDelete
