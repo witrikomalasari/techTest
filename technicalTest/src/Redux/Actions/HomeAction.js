@@ -1,4 +1,3 @@
-import {showMessage} from '../../Utils';
 import Axios from 'axios';
 import {API_HOST} from '../../Config';
 

@@ -15,14 +15,13 @@ import {ProfileDummy} from '../../Assets';
 import {
   Button,
   CardPriceAndPhone,
-  CardSizeAndKota,
   Gap,
   Headers,
   ProfileSupplier,
 } from '../../Components';
 import {getDetailHargaUdang} from '../../Redux/Actions/HomeAction';
 
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 const HargaUdang = props => {
   const dispatch = useDispatch();
@@ -154,7 +153,11 @@ const HargaUdang = props => {
                     </Text>
                     <Gap width={15} />
                     <Text style={styles.txt}>
-                      {`Rp. ${item.slice(item.search(' ', 0)).substring(1)}`}
+                      {`Rp. ${
+                        item.slice(item.search(' ', 0)).substring(1) > 0
+                          ? item.slice(item.search(' ', 0)).substring(1)
+                          : 0
+                      }`}
                     </Text>
                   </View>
                 );

@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, CardSizeAndKota, Gap, Headers, Search} from '../../Components';
-import {regionAction} from '../../Redux/Actions/SearchAction';
 
 const {width: ScreenWidth} = Dimensions.get('window');
 

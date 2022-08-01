@@ -1,7 +1,7 @@
-import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import {Button} from '../../Atoms';
+import {StyleSheet, Text, View} from 'react-native';
 import {colors, fonts} from '../../../Utils';
+import {Button} from '../../Atoms';
 
 const CardPriceAndPhone = ({size, price, typeButton, titleButton, onPress}) => {
   return (

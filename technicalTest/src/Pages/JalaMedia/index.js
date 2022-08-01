@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {SizeIcon} from '../../Assets';
-import {Button, Headers, HomeTopTab} from '../../Components';
+import {Headers, HomeTopTab} from '../../Components';
 // import {colors} from '../../Utils';
 
 const JalaMedia = props => {

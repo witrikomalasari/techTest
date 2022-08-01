@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import {Delete, SearchIcon} from '../../../Assets';
 import {TextInput} from '../../Atoms';
 

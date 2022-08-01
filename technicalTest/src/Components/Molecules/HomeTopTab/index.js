@@ -1,14 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
   FlatList,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';

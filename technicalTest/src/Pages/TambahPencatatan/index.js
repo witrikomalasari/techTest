@@ -9,33 +9,34 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Button, CardSizeAndKota, Headers} from '../../Components';
+import {Button, Headers} from '../../Components';
 
 const {width: ScreenWidth, height: ScreenHeight} = Dimensions.get('window');
 
 const TambahPencatatan = props => {
   const navigation = useNavigation();
   const [isShow, setIsShow] = useState(false);
-  const [looping, setLooping] = useState([
-    20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
-    190, 200,
-  ]);
+  const [sizeUdang, setSizeUdang] = useState([]);
+
   useEffect(() => {
     setIsShow(!isShow);
-    // sizeUdang(200);
+    size(200);
   }, []);
 
-  // const sizeUdang = nums => {
-  //   let temp = [];
-  //   for (let i = 10; i < nums; i + 10) {
-  //     temp.push(nums[i]);
-  //   }
-  //   // console.log('temp', temp);
-  //   setLooping([...temp]);
-  // };
+  const size = nums => {
+    let temp = [];
+    for (let i = 20; i <= nums; i += 10) {
+      temp.push(i);
+      // console.log('temp', i);
+    }
+    console.log('temp', temp);
+    setSizeUdang(temp);
+  };
 
-  let hitung = looping.length;
-  // console.log('looping', looping);
+  let hitung = sizeUdang.length;
+
+  // console.log('loopingSizeUdang', sizeUdang);
+
   return (
     <View style={styles.containerModal}>
       <Headers
@@ -60,7 +61,7 @@ const TambahPencatatan = props => {
             </View>
             <View style={styles.border}></View>
             <ScrollView style={styles.wrapSize}>
-              {looping.map((e, id) => {
+              {sizeUdang.map((e, id) => {
                 // console.log('isi e', id);
                 return (
                   <TouchableOpacity

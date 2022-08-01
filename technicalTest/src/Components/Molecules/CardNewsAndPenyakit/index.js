@@ -23,7 +23,7 @@ const CardNewsAndPenyakit = ({image, title, subTitle, date, onPress}) => {
       <View style={styles.wrap}>
         <Text style={styles.title}>{title}</Text>
         <Gap height={4} />
-        <Text style={styles.txt}>{subTitle}</Text>
+        <Text style={[styles.txt, {textAlign: 'justify'}]}>{subTitle}</Text>
         <Gap height={10} />
         <View style={{flexDirection: 'row'}}>
           <Text style={{flex: 1, color: 'black'}}>{date}</Text>

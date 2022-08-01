@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {colors, fonts} from '../../../Utils';
 
 const CardCategory = ({onPress, title, type}) => {
