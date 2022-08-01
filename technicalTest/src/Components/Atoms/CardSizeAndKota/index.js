@@ -12,15 +12,7 @@ import Gap from '../Gap';
 
 const {height: ScreenHeight} = Dimensions.get('window');
 
-const CardSizeAndKota = ({
-  onPress,
-  type,
-  title,
-  height,
-  price,
-  nestedScrollEnabled,
-  ...props
-}) => {
+const CardSizeAndKota = ({onPress, type, title, height, price, ...props}) => {
   // const handleToAttachHome = region => {
   //   props.navigation.navigate('JalaMedia', {
   //     region: region,
@@ -28,6 +20,8 @@ const CardSizeAndKota = ({
   // };
 
   const renderText = ({item}) => {
+    // console.log('item ini', item.province_name);
+
     if (type === 'size' || type === 'region') {
       return (
         <TouchableOpacity
@@ -35,19 +29,19 @@ const CardSizeAndKota = ({
           style={styles.container(height)}
           // onPress={() => handleToAttachHome(item.id)}
         >
-          <Text style={styles.txt}>{title}</Text>
+          <Text style={[styles.txt, {color: 'black'}]}>{item.full_name}</Text>
         </TouchableOpacity>
       );
     }
-    if (type === 'listHarga') {
-      return (
-        <TouchableOpacity style={{flexDirection: 'row'}}>
-          <Text style={styles.txt}>{title}</Text>
-          <Gap width={15} />
-          <Text style={styles.txt}>{price}</Text>
-        </TouchableOpacity>
-      );
-    }
+    // if (type === 'listHarga') {
+    //   return (
+    //     <TouchableOpacity style={{flexDirection: 'row'}}>
+    //       <Text style={styles.txt}>{item.title}</Text>
+    //       <Gap width={15} />
+    //       <Text style={styles.txt}>{item.price}</Text>
+    //     </TouchableOpacity>
+    //   );
+    // }
   };
 
   return (
@@ -58,7 +52,6 @@ const CardSizeAndKota = ({
           data={props.data}
           renderItem={renderText}
           keyExtractor={(item, index) => index}
-          nestedScrollEnabled={nestedScrollEnabled}
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -76,7 +69,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     justifyContent: 'center',
     height: ScreenHeight / height,
-    // backgroundColor: 'pink',
   }),
   txt: {color: 'black', fontSize: 14},
 });

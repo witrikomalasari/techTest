@@ -18,7 +18,7 @@ const InfoPenyakit = props => {
   //   'webviewlistPenyakit',
   //   JSON.stringify(webViewListPenyakit, null, 2),
   // );
-  console.log('ROUTE PENYAKITT', webViewListPenyakit);
+  // console.log('ROUTE PENYAKITT', webViewListPenyakit);
 
   return (
     <View style={{flex: 1}}>

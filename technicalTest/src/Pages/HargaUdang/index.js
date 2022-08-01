@@ -38,7 +38,6 @@ const HargaUdang = props => {
   }, []);
 
   const {
-    id,
     remark,
     region: {province_name, regency_name},
     creator: {name, phone, buyer},
@@ -46,12 +45,12 @@ const HargaUdang = props => {
   } = props.route.params.data;
 
   // PERCOBAAN CARI LIST HARGA, DATA FROM API
-  const price = detailHarga => {
+  const price = dataHarga => {
     let harga = [];
     // let object;
-    for (var keyObject in detailHarga) {
-      if (detailHarga.hasOwnProperty(keyObject)) {
-        let obj = keyObject + ' ' + detailHarga[keyObject];
+    for (var keyObject in dataHarga) {
+      if (dataHarga.hasOwnProperty(keyObject)) {
+        let obj = keyObject + ' ' + dataHarga[keyObject];
         // console.log('ini coba jah', detailHarga(obj));
         let object = obj;
         // console.log('ini object', object);
@@ -70,13 +69,13 @@ const HargaUdang = props => {
 
   let hitung = listHarga.length;
 
-  const call = phone => {
-    // console.log('callNumber ----> ', phone);
-    let phoneNumber = phone;
+  const call = phoneNumb => {
+    // console.log('callNumber ----> ', phoneNumb);
+    let phoneNumber = phoneNumb;
     if (Platform.OS !== 'android') {
-      phoneNumber = `telprompt:${phone}`;
+      phoneNumber = `telprompt:${phoneNumb}`;
     } else {
-      phoneNumber = `tel://${phone}`;
+      phoneNumber = `tel://${phoneNumb}`;
     }
     // console.log(typeof phoneNumber);
     Linking.canOpenURL(phoneNumber)

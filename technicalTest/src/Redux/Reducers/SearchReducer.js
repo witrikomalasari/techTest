@@ -1,21 +1,21 @@
-const initialState = {
+const initHome = {
+  regions: [],
   searchRegion: [],
-  region: [],
 };
 
-const searchReducer = (state = initialState, action) => {
+export const regionReducer = (state = initHome, action) => {
+  if (action.type === 'SET_REGIONS') {
+    return {
+      ...state,
+      regions: action.value,
+    };
+  }
   if (action.type === 'SEARCH_FILTER') {
     return {
       ...state,
       searchRegion: action.value,
     };
   }
-  if (action.type === 'SET_REGION') {
-    return {
-      ...state,
-      region: action.value,
-    };
-  }
+
   return state;
 };
-export default searchReducer;

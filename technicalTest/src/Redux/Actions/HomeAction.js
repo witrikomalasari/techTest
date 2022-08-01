@@ -23,10 +23,10 @@ export const getDetailHargaUdang = (id, regionId) => async dispatch => {
 
   try {
     const res = await Axios.get(urlApi);
-    console.log(
-      'resultDETAILHARGAbaruajah',
-      JSON.stringify(res.data.data, null, 2),
-    );
+    // console.log(
+    //   'resultDETAILHARGAbaruajah',
+    //   JSON.stringify(res.data.data, null, 2),
+    // );
 
     return dispatch({
       type: 'SET_DETAILHARGA',

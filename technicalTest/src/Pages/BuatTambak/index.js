@@ -10,122 +10,75 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, CardSizeAndKota, Gap, Headers, Search} from '../../Components';
+import {
+  regionAction,
+  searchFilterAction,
+} from '../../Redux/Actions/SearchAction';
 
-const {width: ScreenWidth} = Dimensions.get('window');
+const {height: ScreenHeight, width: ScreenWidth} = Dimensions.get('window');
 
 const BuatTambak = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const region = useSelector(state => state.searchReducer);
-  const [searchTextInput, setSearchTextInput] = useState([]);
+  const [searchTextInput, setSearchTextInput] = useState('');
   const [isShow, setIsShow] = useState(false);
-
-  //HARD code
-  const [regions, setRegions] = useState([
-    {id: 1, region: 'Aceh Simeulue'},
-    {id: 2, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 3, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 4, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 5, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 6, region: 'Aceh, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 7, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 8, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-    {id: 9, region: 'Aceh Simeulue'},
-    {id: 10, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 11, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 12, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 13, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 14, region: 'Ach, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 15, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 16, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-    {id: 17, region: 'Aceh Simeulue'},
-    {id: 18, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 19, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 20, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 21, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 22, region: 'Aceh, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 23, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 24, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-    {id: 25, region: 'Aceh Simeulue'},
-    {id: 26, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 27, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 28, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 29, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 30, region: 'Aceh, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 31, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 32, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-    {id: 33, region: 'Aceh Simeulue'},
-    {id: 34, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 35, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 36, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 37, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 38, region: 'Ach, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 39, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 40, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-    {id: 41, region: 'Aceh Simeulue'},
-    {id: 42, region: 'Aceh, Simeulue, Tupah Selatan'},
-    {id: 43, region: 'Aceh, Simeulue, Teupah Selatan, Labuhan Bajau'},
-    {id: 44, region: 'Aceh, Simeulue, Teupah Selatan, Pulau Bengkalak'},
-    {id: 45, region: 'Aceh, Simeulue, Teupah Selatan, Badegong'},
-    {id: 46, region: 'Aceh, Simeulue, Teupah Selatan, Kebun Baru'},
-    {id: 47, region: 'Aceh, Simeulue, Teupah Selatan, Ulul Mayang'},
-    {id: 48, region: 'Aceh, Simeulue, Teupah Selatan, Pasir Tinggi'},
-  ]);
 
   useEffect(() => {
     setIsShow(!isShow);
-    // dispatch(regionAction());
+    dispatch(regionAction());
   }, []);
 
-  let hitung = regions.length;
+  // console.log('regionregion', JSON.stringify(region, null, 2));
 
-  // console.log('resultREGION', JSON.stringify(region[0], null, 2));
+  const regions = [
+    {id: 1, data: useSelector(state => state.regionReducer.regions)},
+  ];
+
+  // console.log('resultREGION', JSON.stringify(regions, null, 2));
 
   const searchByTextInput = region => {
-    // console.log('searchByTextInput', region);
+    console.log('searchByTextInput', region);
     let filteredRegions = region.filter(regi =>
-      regi.region.toLowerCase().includes(searchTextInput.toLowerCase('')),
+      regi.full_name.includes(searchTextInput),
     );
     return filteredRegions;
   };
 
   const handleFilterRegion = region => {
-    // console.log('handleFilterRegion', JSON.stringify(regions, null, 2));
+    // console.log('handleFilterRegion', JSON.stringify(region, null, 2));
 
     let filteredRegions;
-    if (searchTextInput) {
+    if (searchTextInput.length > 0) {
+      filteredRegions = searchByTextInput(region);
+    }
+    if (searchTextInput === 0) {
       filteredRegions = searchByTextInput(region);
     }
     if (!searchTextInput) {
       filteredRegions = searchByTextInput(region);
     }
+    // console.log('search ini', filteredRegions);
     return filteredRegions;
   };
 
   // console.log('region', filteredRegions);
 
   const renderMapPerSection = regions.map((region, id) => {
-    // console.log('resultREGION', JSON.stringify(regions, null, 2));
+    // data bentuk [{}]
+    // console.log('resultREGION woii', JSON.stringify(region.data, null, 2));
 
-    //  let coa;
-    //  regions.map(e => {
-    //    coa = e;
-    //  });
-    //  console.log('coa', coa.region);
-    // let regionName;
-    // regions.map(e => {
-    //   regionName = e;
-    // });
-    //   // console.log('regionName', regionName);
     return (
       <CardSizeAndKota
-        key={region.id}
+        {...props}
+        key={id}
         type="region"
-        title={region.region}
-        data={searchTextInput > 0 ? handleFilterRegion(regions) : region.region}
-        height={hitung - 24}
-        navigation={props.navigation}
-        nestedScrollEnabled
+        data={
+          searchTextInput.length > 0
+            ? handleFilterRegion(region.data)
+            : region.data
+        }
+        height={17}
+        // navigation={props.navigation}
       />
     );
   });
@@ -157,10 +110,10 @@ const BuatTambak = props => {
               placeholderTextColor="black"
               value={searchTextInput}
               onChangeText={text => {
-                // console.log('search', text);
+                console.log('search', text);
                 setSearchTextInput(text);
               }}
-              onDelete
+              onDelete={() => setSearchTextInput('')}
             />
             <Gap height={8} />
             <View style={styles.border}></View>

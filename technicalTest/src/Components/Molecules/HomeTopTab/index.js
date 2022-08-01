@@ -153,7 +153,7 @@ const KabarUdang = () => {
   const dispatch = useDispatch();
   const {kabarUdang} = useSelector(state => state.kabarUdangReducer);
 
-  // console.log('listPenyakitBARU', JSON.stringify(kabarUdang, null, 2));
+  // console.log('KABAR UDANG', JSON.stringify(kabarUdang, null, 2));
 
   const [page, setPage] = useState(1);
 
