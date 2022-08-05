@@ -4,12 +4,9 @@ import {StyleSheet, View} from 'react-native';
 import {Headers, HomeTopTab} from '../../Components';
 // import {colors} from '../../Utils';
 
-const JalaMedia = props => {
+const JalaMedia = ({route = false}) => {
   const navigation = useNavigation();
-
-  // const coba = props.route.params;
-  // console.log('coba', coba);
-
+  // console.log('iniROUTEJALAMEDIA', route.params);
   return (
     <View style={styles.page}>
       <Headers
@@ -18,7 +15,7 @@ const JalaMedia = props => {
         icon="arrowBack"
         onPress={() => navigation.goBack()}
       />
-      <HomeTopTab />
+      <HomeTopTab sizeValue={route.params ? route.params.sizeUdang : null} />
     </View>
   );
 };

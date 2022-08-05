@@ -2,7 +2,7 @@ import Axios from 'axios';
 import {API_HOST} from '../../Config';
 
 export const getSupplierData = page => async dispatch => {
-  console.log('page', page);
+  // console.log('page', page);
   let urlApi = `${API_HOST.url}/shrimp_prices?per_page=15&page=${page}&with=region,creator&region_id=`;
 
   try {

@@ -15,29 +15,28 @@ import {
   searchFilterAction,
 } from '../../Redux/Actions/SearchAction';
 
-const {height: ScreenHeight, width: ScreenWidth} = Dimensions.get('window');
+const {width: ScreenWidth} = Dimensions.get('window');
 
 const BuatTambak = props => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [searchTextInput, setSearchTextInput] = useState('');
   const [isShow, setIsShow] = useState(false);
+  const regions = [
+    {id: 1, data: useSelector(state => state.regionReducer.regions)},
+    // {id: 2, data: useSelector(state => state.regionReducer.searchRegion)},
+  ];
 
   useEffect(() => {
     setIsShow(!isShow);
     dispatch(regionAction());
+    // dispatch(searchFilterAction());
   }, []);
-
-  // console.log('regionregion', JSON.stringify(region, null, 2));
-
-  const regions = [
-    {id: 1, data: useSelector(state => state.regionReducer.regions)},
-  ];
 
   // console.log('resultREGION', JSON.stringify(regions, null, 2));
 
   const searchByTextInput = region => {
-    console.log('searchByTextInput', region);
+    // console.log('searchByTextInput', region);
     let filteredRegions = region.filter(regi =>
       regi.full_name.includes(searchTextInput),
     );
@@ -65,11 +64,11 @@ const BuatTambak = props => {
 
   const renderMapPerSection = regions.map((region, id) => {
     // data bentuk [{}]
-    // console.log('resultREGION woii', JSON.stringify(region.data, null, 2));
+    console.log('resultREGION woii', JSON.stringify(region.data, null, 2));
 
     return (
       <CardSizeAndKota
-        {...props}
+        // {...props}
         key={id}
         type="region"
         data={
@@ -77,7 +76,7 @@ const BuatTambak = props => {
             ? handleFilterRegion(region.data)
             : region.data
         }
-        height={17}
+        height={14}
         // navigation={props.navigation}
       />
     );
@@ -110,7 +109,7 @@ const BuatTambak = props => {
               placeholderTextColor="black"
               value={searchTextInput}
               onChangeText={text => {
-                console.log('search', text);
+                // console.log('search', text);
                 setSearchTextInput(text);
               }}
               onDelete={() => setSearchTextInput('')}

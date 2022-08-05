@@ -11,13 +11,8 @@ import {
 } from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  ImageNews,
-  linkIcon,
-  ProfileDummy,
-  SizeIcon,
-  Udang,
-} from '../../../Assets';
+import {ImageNews, linkIcon, SizeIcon, Udang} from '../../../Assets';
+import {API_HOST} from '../../../Config';
 import {
   getDetailHargaUdang,
   getSupplierData,
@@ -48,14 +43,29 @@ const renderTabBar = props => (
 );
 
 const HargaUdang = () => {
+  // const sizeUdang = props.route.params;
+  // console.log('isi PROPS HARGA UDANG', sizeUdang);
+  // console.log('ISINPROPSHARGAUDANG', props);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {dataSupplier} = useSelector(state => state.homeReducer);
 
   // console.log('dataSupplier', JSON.stringify(dataSupplier, null, 2));
-
+  // console.log('ISI SIZEVALUE', sizeValue);
   const [page, setPage] = useState(1);
-  const [datas, setDatas] = useState([]);
+  const [datas, setDatas] = useState([
+    // {
+    //   // sesuaikan penamaannya dengan penamaan di API
+    //   id: '',
+    //   image: '',
+    //   namaSupplier: '',
+    //   date: '',
+    //   privinsi: '',
+    //   kota: '',
+    //   size: '',
+    //   price: '',
+    // },
+  ]);
 
   useEffect(() => {
     dispatch(getSupplierData(page));
@@ -63,15 +73,13 @@ const HargaUdang = () => {
   }, [page]);
 
   const renderReview = ({item}) => {
-    // console.log('itemSUPLIER', item);
-
-    // console.log('ITEMSUPPLIER', JSON.stringify(item, null, 2));
+    // console.log('ITEMSUPPLIER', JSON.stringify(item.creator.avatar, null, 2));
 
     return (
       <CardSupplier
         key={item.id}
         type="HargaUdang"
-        image={ProfileDummy}
+        image={{uri: `${API_HOST.storage}/${item.creator.avatar}`}}
         nameSupplier={item.creator.name}
         typeButtonVerification="ButtonVerification"
         date={moment(item.updated_at).format('DD MMMM YYYY')}
@@ -81,13 +89,17 @@ const HargaUdang = () => {
             ? item.region.regency_name
             : item.region.province_name
         }
-        // size={'Size ' + item.date_region_full_name.slice(0, 1)} // ROUTE PARAMS
-        // price={'IDR ' + item.price} //
+        size={'Size '} // ROUTE PARAMS
+        price={'IDR '} //
         onPress={async () => {
-          await dispatch(getDetailHargaUdang(item.id, item.creator.region_id));
-          navigation.navigate('HargaUdang', {
-            data: item,
-          });
+          try {
+            dispatch(getDetailHargaUdang(item.id, item.creator.region_id));
+            navigation.navigate('DetailHargaUdang', {
+              data: item,
+            });
+          } catch (error) {
+            console.log('error lihat detail harga', error);
+          }
         }}
         typeButton="primary"
         titleButton="LIHAT DETAIL"
@@ -114,9 +126,13 @@ const HargaUdang = () => {
             data={[...dataSupplier, ...datas]}
             renderItem={renderReview}
             showsVerticalScrollIndicator={false}
-            pagingEnabled={true}
+            // pagingEnabled={true}
             onEndReached={handleOnEnd}
-            onEndReachedThreshold={0.1}
+            onEndReachedThreshold={0.5}
+            showDefaultLoadingIndicators={true}
+            // activityIndicatorColor={'blue'}
+            // HeaderLoadingIndicator=
+            // FooterLoadingIndicator=
           />
         )}
       </View>
@@ -132,7 +148,7 @@ const HargaUdang = () => {
         <Button
           image={SizeIcon}
           title="Size"
-          subTitle="100"
+          // subTitle={100}
           type="FloatingButton"
           typeStyle="size"
           onPress={() => navigation.navigate('TambahPencatatan')}
@@ -153,7 +169,9 @@ const KabarUdang = () => {
   const dispatch = useDispatch();
   const {kabarUdang} = useSelector(state => state.kabarUdangReducer);
 
-  // console.log('KABAR UDANG', JSON.stringify(kabarUdang, null, 2));
+  // console.log('KABAR UDANG+AVATAR', JSON.stringify(kabarUdang, null, 2));
+  // const {image} = kabarUdang[0];
+  // console.log('imageianin', image);
 
   const [page, setPage] = useState(1);
 
@@ -180,11 +198,21 @@ const KabarUdang = () => {
             renderItem={item => {
               // console.log(
               //   'KABARUDANGDONGK',
-              //   JSON.stringify(item.item, null, 2),
+              //   JSON.stringify(
+              //     `${API_HOST.storage}/${item.item.image}`,
+              //     null,
+              //     2,
+              //   ),
               // );
               return (
                 <CardNewsAndPenyakit
-                  image={ImageNews}
+                  image={
+                    item.item.image
+                      ? {
+                          uri: `${API_HOST.storage}/${item.item.image}`,
+                        }
+                      : ImageNews
+                  }
                   title={item.item.title}
                   subTitle={item.item.excerpt}
                   date={moment(item.item.updated_at).format('DD MMMM YYYY')}
@@ -241,11 +269,17 @@ const InfoPenyakit = () => {
             renderItem={item => {
               // console.log(
               //   'listPenyakitBARUAKA',
-              //   JSON.stringify(item.item.id, null, 2),
+              //   JSON.stringify(item.item, null, 2),
               // );
               return (
                 <CardNewsAndPenyakit
-                  image={Udang}
+                  image={
+                    item.item.image
+                      ? {
+                          uri: `${API_HOST.storage}/${item.item.image}`,
+                        }
+                      : Udang
+                  }
                   title={item.item.full_name}
                   subTitle={item.item.meta_description}
                   date={moment(item.item.updated_at).format('DD MMMM YYYY')}
@@ -275,7 +309,12 @@ const initialLayout = {
   height: Dimensions.get('window').height,
 };
 
-const HomeTopTab = () => {
+const HomeTopTab = props => {
+  // console.log('ini props HOME TOP TAB', props);
+
+  const {sizeValue} = props;
+  console.log('sizeVALUE', sizeValue);
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: '1', title: 'Harga Udang'},
@@ -296,7 +335,7 @@ const HomeTopTab = () => {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
-      style={styles.tabView}
+      sceneContainerStyle={styles.tabView}
     />
   );
 };
@@ -330,20 +369,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[700],
     fontSize: 18,
     textAlign: 'center',
-  },
-  footer: {
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  loadMoreBtn: {
-    padding: 10,
-    backgroundColor: '#800000',
-    borderRadius: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingBottom: 15,
   },
   btnText: {
     color: 'white',

@@ -18,11 +18,12 @@ export const regionAction = () => async dispatch => {
 };
 
 export const searchFilterAction = region => async dispatch => {
+  console.log('ini REGION ACTION', region);
   let urlApi = `${API_HOST.url}/regions?has=shrimp_prices&search=${region}`;
 
   try {
     const res = await Axios.get(urlApi);
-    // console.log('SEARCH', JSON.stringify(res, null, 2));
+    console.log('SEARCH', JSON.stringify(res.data.data, null, 2));
 
     if (region.length > 0) {
       return dispatch({

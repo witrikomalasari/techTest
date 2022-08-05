@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import {colors} from '../../../Utils';
-import Gap from '../Gap';
 
 const {height: ScreenHeight} = Dimensions.get('window');
 
@@ -21,7 +20,7 @@ const CardSizeAndKota = ({onPress, type, title, height, price, ...props}) => {
 
   const renderText = ({item}) => {
     // console.log('item ini', item.province_name);
-
+    //data bentuk {}
     if (type === 'size' || type === 'region') {
       return (
         <TouchableOpacity
@@ -55,9 +54,7 @@ const CardSizeAndKota = ({onPress, type, title, height, price, ...props}) => {
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{color: colors.white, fontSize: 16}}>
-            Opps...Movie not found!
-          </Text>
+          <Text style={styles.txt}>Opps...region not found!</Text>
         </View>
       )}
     </View>

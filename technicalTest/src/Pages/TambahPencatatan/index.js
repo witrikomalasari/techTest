@@ -29,7 +29,7 @@ const TambahPencatatan = props => {
       temp.push(i);
       // console.log('temp', i);
     }
-    console.log('temp', temp);
+    // console.log('temp', temp);
     setSizeUdang(temp);
   };
 
@@ -62,15 +62,20 @@ const TambahPencatatan = props => {
             <View style={styles.border}></View>
             <ScrollView style={styles.wrapSize}>
               {sizeUdang.map((e, id) => {
-                // console.log('isi e', id);
+                // console.log('isi e', typeof e);
                 return (
                   <TouchableOpacity
-                    // onPress={() => handleToFilterBySize(item.id)}
+                    key={id}
+                    onPress={() => {
+                      navigation.navigate('JalaMedia', {
+                        sizeUdang: e,
+                      });
+                    }}
                     activeOpacity={0.7}
                     style={{
                       paddingHorizontal: 16,
                       justifyContent: 'center',
-                      height: ScreenHeight / hitung,
+                      height: ScreenHeight / hitung + 15,
                     }}>
                     <Text style={styles.txt}>{e}</Text>
                   </TouchableOpacity>

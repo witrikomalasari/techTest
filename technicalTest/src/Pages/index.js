@@ -1,7 +1,13 @@
 import JalaMedia from './JalaMedia';
-import HargaUdang from './HargaUdang';
+import DetailHargaUdang from './DetailHargaUdang';
 import BuatTambak from './BuatTambak';
 import TambahPencatatan from './TambahPencatatan';
 import InfoPenyakit from './Penyakit';
 
-export {JalaMedia, HargaUdang, BuatTambak, TambahPencatatan, InfoPenyakit};
+export {
+  JalaMedia,
+  DetailHargaUdang,
+  BuatTambak,
+  TambahPencatatan,
+  InfoPenyakit,
+};

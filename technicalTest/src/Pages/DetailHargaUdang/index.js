@@ -19,14 +19,25 @@ import {
   Headers,
   ProfileSupplier,
 } from '../../Components';
+import {API_HOST} from '../../Config';
 import {getDetailHargaUdang} from '../../Redux/Actions/HomeAction';
 
 const {height} = Dimensions.get('window');
 
-const HargaUdang = props => {
+const DetailHargaUdang = props => {
   const dispatch = useDispatch();
-  // console.log('route', JSON.stringify(route.params.data, null, 2));
+  // console.log(
+  //   'routeHARGAUDANGROUTE',
+  //   JSON.stringify(props.route.params, null, 2),
+  // );
   const {detailHarga} = useSelector(state => state.homeReducer);
+
+  const {
+    remark,
+    region: {province_name, regency_name},
+    creator: {name, phone, buyer, avatar},
+    updated_at,
+  } = props.route.params.data;
 
   // console.log('resultDETAILHARGA', JSON.stringify(detailHarga, null, 2));
 
@@ -34,15 +45,9 @@ const HargaUdang = props => {
 
   useEffect(() => {
     dispatch(getDetailHargaUdang());
+    // price({...size});
     price(detailHarga);
-  }, []);
-
-  const {
-    remark,
-    region: {province_name, regency_name},
-    creator: {name, phone, buyer},
-    updated_at,
-  } = props.route.params.data;
+  }, [detailHarga]);
 
   // PERCOBAAN CARI LIST HARGA, DATA FROM API
   const price = dataHarga => {
@@ -58,11 +63,13 @@ const HargaUdang = props => {
         // harga.push(coba.filter(!Boolean));
       }
     }
+
     let hargaUdang = harga.filter(
       item =>
         typeof item !== 'boolean' && item.replace(item.includes('remark'), ''),
     );
-    setListHarga(hargaUdang);
+    // console.log('ini list harga', hargaUdang);
+    setListHarga([...hargaUdang]);
   };
 
   // console.log('ini list harga', listHarga);
@@ -124,7 +131,10 @@ const HargaUdang = props => {
             <Button type="ButtonVerification" disable={buyer} />
           </View>
           <Gap height={6} />
-          <ProfileSupplier image={ProfileDummy} nameSupplier={name} />
+          <ProfileSupplier
+            image={{uri: `${API_HOST.storage}/${avatar}`}}
+            nameSupplier={name}
+          />
           <Gap height={6} />
           <CardPriceAndPhone
             size="Kontak"
@@ -138,10 +148,11 @@ const HargaUdang = props => {
           <Gap height={10} />
           <ScrollView>
             <View style={{height: height * 0.98}}>
-              {listHarga.map(item => {
+              {listHarga.map((item, id) => {
+                // console.log('iteminiini', id);
                 return (
                   <View
-                    key={item.id}
+                    key={id}
                     style={{
                       flexDirection: 'row',
                       height: height / hitung,
@@ -185,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HargaUdang;
+export default DetailHargaUdang;

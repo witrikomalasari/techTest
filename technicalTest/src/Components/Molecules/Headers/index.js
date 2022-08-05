@@ -7,7 +7,7 @@ const Headers = ({type, icon, onPress, title, linkIcon, onPressIcon}) => {
   return (
     <View style={styles.container}>
       <Button type={type} icon={icon} onPress={onPress} />
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text style={styles.title}>{title}</Text>
         {linkIcon === 'white' && (
           <Button onPress={onPressIcon} icon="linkWhite" />

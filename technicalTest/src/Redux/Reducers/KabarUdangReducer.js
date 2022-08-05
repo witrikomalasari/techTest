@@ -2,6 +2,7 @@ const initHome = {
   webViewKabarUdang: [],
   kabarUdang: [],
   linkKabarUdang: [],
+  avatar: [],
 };
 
 export const kabarUdangReducer = (state = initHome, action) => {
@@ -23,6 +24,11 @@ export const kabarUdangReducer = (state = initHome, action) => {
       linkKabarUdang: action.value,
     };
   }
-
+  if (action.type === 'SET_AVATAR') {
+    return {
+      ...state,
+      avatar: action.value,
+    };
+  }
   return state;
 };

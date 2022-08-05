@@ -17,7 +17,6 @@ const KabarUdang = props => {
   //   'webViewKabarUdang',
   //   JSON.stringify(webViewKabarUdang.kabarUdang, null, 2),
   // );
-  // console.log('routeUDANG', KabarUdang);
 
   return (
     <View style={{flex: 1}}>

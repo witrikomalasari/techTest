@@ -3,13 +3,14 @@ import {API_HOST, Auth} from '../../Config';
 
 export const getKabarUdang = page => async dispatch => {
   let urlApi = `${API_HOST.url}/posts?per_page=15&page=${page}&with=creator`;
+  // let urlStorageAvatar = `${API_HOST.storage}/${image}`;
   let headers = {
     Authorization: `Bearer ${Auth.Authorization}`,
   };
 
   try {
     const res = await Axios.get(urlApi, {headers});
-    // console.log('resultKABARUDANG', JSON.stringify(res.data.data, null, 2));
+    // console.log('resultKABARUDANG', JSON.stringify(urlStorageAvatar, null, 2));
 
     return dispatch({
       type: 'SET_KABARUDANG',
